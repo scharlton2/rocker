@@ -57,6 +57,11 @@ RUN apt-get update -qq \
 		xvfb \
 		zlib1g-dev
 
+## Add DOI Root Certificate Authority
+COPY DOIRootCA2.crt /usr/local/share/ca-certificates
+
+RUN update-ca-certificates
+
 ## Check out R-devel
 RUN cd /tmp \
 && svn co https://svn.r-project.org/R/trunk R-devel
@@ -99,3 +104,5 @@ RUN cd /usr/local/bin \
 && mv Rscript Rscriptdevel \
 && ln -s Rdevel RD \
 && ln -s Rscriptdevel RDscript
+
+COPY phreeqc_3.6.2.tar.gz /root
